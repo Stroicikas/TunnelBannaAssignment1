@@ -37,16 +37,26 @@
         </div>
         <?php
         if (isset($_POST["submit"])) {
+
             $startingpoint = $_POST["start"];
             $endingpoint = $_POST["end"];
 
             $startind = array_search($startingpoint, $linje19);
             $endind = array_search($endingpoint, $linje19);
 
-            $finaltime = abs($endind - $startind) * 3;
+            $finaltime_mins = abs($endind - $startind) * 3;
+
+            if ($finaltime_mins >= 60) {
+                $hours = floor($finaltime_mins / 60);
+                $minutes = $finaltime_mins % 60;
+                $finaltime = "$hours hour and $minutes minutes";
+            }
+            else {
+                $finaltime = "$finaltime_mins minutes";
+            }
         ?>
         <div class="result">
-        Time you will spend traveling from <strong><?php echo $startingpoint; ?></strong> to <strong><?php echo $endingpoint; ?></strong> is <?php echo $finaltime; ?> minutes
+        Time you will spend traveling from <strong><?php echo $startingpoint; ?></strong> to <strong><?php echo $endingpoint; ?></strong> is <?php echo $finaltime; ?>
         </div>
         <?php
         } 
